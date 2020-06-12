@@ -1,4 +1,4 @@
-package com.internet.common.lock;
+package com.internet.common.util;
 
 import org.apache.commons.lang3.time.FastDateFormat;
 

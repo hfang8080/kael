@@ -1,5 +1,8 @@
 package com.internet.common.lock;
 
+import com.internet.common.lock.services.RedisService;
+import com.internet.common.util.Util;
+
 import java.time.Instant;
 
 /**
@@ -15,9 +18,12 @@ public class RedisDistributedLock implements DistributedLock {
     @Override
     public String acquireLock(String key, int expireSeconds) {
         String identifier = Util.generateUuid();
-        long setNxResult = redisService.setNx(key, identifier);
-        long expireResult = redisService.expire(key, expireSeconds);
-        if (setNxResult == 1 && expireResult == 1) {
+        System.out.println(String.format("%s: Generate id: %s.",
+                Thread.currentThread().getName(), identifier));
+//        long setNxResult = redisService.setNx(key, identifier);
+//        long expireResult = redisService.expire(key, expireSeconds);
+        boolean success = redisService.setNxWithExpire(key, identifier, expireSeconds);
+        if (success) {
             System.out.println(String.format("%s: Acquire lock %s success with %s.",
                     Thread.currentThread().getName(), key, identifier));
             return identifier;
@@ -47,18 +53,20 @@ public class RedisDistributedLock implements DistributedLock {
     @Override
     public String acquireLockWithBlock(String key, int expireSeconds, int blockSeconds) {
         String identifier = Util.generateUuid();
+        System.out.println(String.format("%s: Generate id: %s.",
+                Thread.currentThread().getName(), identifier));
 
         Instant end = Instant.now().plusSeconds(blockSeconds);
         while (end.isAfter(Instant.now())) {
             long setNxResult = redisService.setNx(key, identifier);
             long expireResult = redisService.expire(key, expireSeconds);
-            if (setNxResult == 1 && expireResult == 1) {
+            if (setNxResult == 1) {
                 System.out.println(String.format("%s: Acquire lock %s success with %s.",
                         Thread.currentThread().getName(), key, identifier));
                 return identifier;
             }
             try {
-                Thread.sleep(10);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

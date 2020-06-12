@@ -13,7 +13,7 @@ public class DistributedLockFactoryImpl implements DistributedLockFactory {
             case REDIS:
                 return new RedisDistributedLock();
             case ZOOKEEPER:
-                return null;
+                return new ZookeeperDistributeLock();
             default:
                 return null;
         }
