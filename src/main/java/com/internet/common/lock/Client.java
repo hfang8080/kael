@@ -7,17 +7,19 @@ import java.util.concurrent.TimeUnit;
 
 public class Client {
     private static final String KEY = "key";
-    static int count = 50;
-    static CountDownLatch countDownLatch = new CountDownLatch(10);
+    static int count = 100;
+    static CountDownLatch countDownLatch = new CountDownLatch(100);
     ThreadPoolExecutor executor = new ThreadPoolExecutor(
-            10, 10, 1000, TimeUnit.MINUTES,
+            100, 100, 1000, TimeUnit.MINUTES,
             new ArrayBlockingQueue<>(100));
 
     public void secKill() {
         DistributedLockFactory factory = new DistributedLockFactoryImpl();
-        DistributedLock lock = factory.createLock(LockDialect.REDIS);
+        DistributedLock lock = factory.createLock(LockDialect.ZOOKEEPER);
         Runnable runnable = () -> {
             while (countDownLatch.getCount() > 0) {
+                System.out.println(String.format("%s: Waiting....",
+                        Thread.currentThread().getName()));
             }
             String identifier = lock.acquireLockWithBlock(KEY, 1000, 10);
             if (identifier != null) {
@@ -29,14 +31,13 @@ public class Client {
         };
 
 
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 100; i++) {
             countDownLatch.countDown();
             executor.execute(runnable);
         }
 
         while (executor.getActiveCount() != 0) {
             try {
-//                System.out.println(executor.getActiveCount());
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();

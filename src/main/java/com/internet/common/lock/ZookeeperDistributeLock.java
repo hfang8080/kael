@@ -1,5 +1,3 @@
-// Copyright 2019 ALO7 Inc. All rights reserved.
-
 package com.internet.common.lock;
 
 import com.internet.common.util.Util;
@@ -18,7 +16,7 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 
 /**
- * @author Kael He(kael.he@alo7.com)
+ * @author Kael He
  */
 public class ZookeeperDistributeLock implements DistributedLock, Watcher {
 
