@@ -12,6 +12,7 @@ repositories {
 }
 
 dependencies {
+    compile group: 'org.apache.zookeeper', name: 'zookeeper', version: '3.4.5'
     compile 'redis.clients:jedis:2.10.2'
     compile 'mysql:mysql-connector-java:5.1.47'
     compile 'org.apache.commons:commons-lang3:3.5'

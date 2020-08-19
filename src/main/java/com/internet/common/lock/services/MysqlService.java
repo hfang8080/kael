@@ -1,4 +1,4 @@
-package com.internet.common.lock;
+package com.internet.common.lock.services;
 
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
