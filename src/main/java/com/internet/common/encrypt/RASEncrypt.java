@@ -71,10 +71,10 @@ public class RASEncrypt {
 
         String publicKeyString = Base64Util.encodeToString(publicKey.getEncoded());
         String privateKeyString = Base64Util.encodeToString(privateKey.getEncoded());
-        System.out.println(String.format("公钥加密算法：%s, 主要编码格式：%s",
-                publicKey.getAlgorithm(), publicKey.getFormat()));
-        System.out.println(String.format("密钥加密算法：%s, 主要编码格式：%s",
-                privateKey.getAlgorithm(), privateKey.getFormat()));
+        System.out.println(String.format("公钥加密算法：%s, 主要编码格式：%s, 公钥: \n%s",
+                publicKey.getAlgorithm(), publicKey.getFormat(), Arrays.toString(publicKey.getEncoded())));
+        System.out.println(String.format("密钥加密算法：%s, 主要编码格式：%s, 密钥: \n%s",
+                privateKey.getAlgorithm(), privateKey.getFormat(), Arrays.toString(privateKey.getEncoded())));
         return Pair.of(publicKeyString, privateKeyString);
     }
 
