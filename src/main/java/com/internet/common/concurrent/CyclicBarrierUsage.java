@@ -17,10 +17,11 @@ public class CyclicBarrierUsage {
     }
 
     public void parallelRun() {
+        // 可以循环使用该线程屏障，这个也是CyclicBarrier的特色
         for (int i = 0; i < 10; ++i) {
             doWork(i);
             ThreadUtil.sleep(1);
-            cyclicBarrier.reset(); // 可以循环使用该线程屏障，这个也是CyclicBarrier的特色
+//            cyclicBarrier.reset(); // 可以手动重置barrier状态, 也可以自动等待上一次循环结束
         }
 
     }
