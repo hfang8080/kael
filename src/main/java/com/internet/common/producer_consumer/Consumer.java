@@ -2,7 +2,7 @@
 
 package com.internet.common.producer_consumer;
 
-import com.internet.common.util.ThreadPrint;
+import com.internet.common.util.ThreadUtil;
 
 import java.util.LinkedList;
 
@@ -22,13 +22,13 @@ public class Consumer extends Thread {
             synchronized (queue) {
                 if (queue.size() == 0) {
                     try {
-                        ThreadPrint.print("Queue is empty, waiting for producing.");
+                        ThreadUtil.print("Queue is empty, waiting for producing.");
                         queue.wait();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
-                ThreadPrint.print("Consuming message, value:" + queue.removeLast());
+                ThreadUtil.print("Consuming message, value:" + queue.removeLast());
                 queue.notify();
             }
         }

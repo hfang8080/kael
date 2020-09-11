@@ -2,7 +2,7 @@
 
 package com.internet.common.producer_consumer;
 
-import com.internet.common.util.ThreadPrint;
+import com.internet.common.util.ThreadUtil;
 
 import java.util.LinkedList;
 
@@ -26,12 +26,12 @@ public class Producer extends Thread {
             synchronized (queue) {
                 String value = "" + i++;
                 queue.addFirst(value);
-                ThreadPrint.print("Producing message to queue. value:" + value);
+                ThreadUtil.print("Producing message to queue. value:" + value);
                 queue.notify();
 
                 if (capital <= queue.size()) {
                     try {
-                        ThreadPrint.print("Queue if full, waiting for consuming.");
+                        ThreadUtil.print("Queue if full, waiting for consuming.");
                         queue.wait();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
