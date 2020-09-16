@@ -8,7 +8,7 @@
 * 非对称加密(`RSA`)的密钥生成及其使用
 * 使用`Java`基础库实现简单的生产消费者模型
 * 分布式锁的实现（`Mysql`,` Redis`, `Zookeeper`）
-* `concurrent`包下工具类基本使用（`CountDownLatch`, `CyclicBarrier`, `Semaphore`）
+* `concurrent`包下工具类基本使用（`CountDownLatch`, `CyclicBarrier`, `Semaphore`, `ReentrantLock`, `ReentrantReadWriteLock`, `StampedLock`）
 
 ## 问题
 当然，因为并不是在大型项目中长时间使用检测过，所以可能会存在一些`bug`。所以大家在使用的过程中，如果遇到了任何问题，请告知我，我会积极和大家讨论并解决掉问题。
